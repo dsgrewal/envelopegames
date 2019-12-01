@@ -1,0 +1,506 @@
+<head>
+
+    <style>
+
+        .unscrambler_wrapper{
+            border-radius: 10px;
+            border: 10px black solid;
+            display: flex;
+            width: 90%;
+            height: 80%;
+            margin: auto;
+
+        }
+        h1{
+            text-align: center;
+            font-size: 49px;
+            font-family: fantasy;
+        }
+
+        .unscrambler_container{
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin:auto
+            top: 0;
+        }
+
+        .unscrambler_tokens{
+            position: relative;
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            vertical-align: middle;
+            width: 80%;
+            height: 200px;
+            top: 20px;
+            border-radius: 15px;
+            background-color: rgba(255,255,255,0.6);
+            border: 3px solid rgb(130, 130, 130);
+            box-shadow: 3px 3px 5px 1px rgba(220, 250, 220, 0.3);
+        }
+
+        .unscrambler_answer{
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+
+            justify-content: center;
+            align-items: center;
+            align-self: center;
+            vertical-align: middle;
+            width: 80%;
+            height: 200px;
+            margin-left: auto;
+            margin-right: auto;
+            top: 100px;
+            border-radius: 15px;
+            background-color: rgba(255,255,255,0.6);
+            border: 3px solid rgb(130, 130, 130);
+            box-shadow: 3px 3px 5px 1px rgba(220, 250, 220, 0.3);
+
+        }
+
+
+        .unscrambler_block{
+            position: relative;
+            display: flex;
+            background-color: rgba(100,100,100,0.2);
+            left: 0;
+            top: 0;
+            width: 850px;
+            height: 500px;
+            z-index: 20;
+            justify-content: center;
+            display: none;
+        }
+
+        .unscrambler_results{
+            position: absolute;
+            width: 450px;
+            height: 300px;
+            border-radius: 20px;
+            background-color: yellow;
+            align-self: center;
+            text-align: center;
+            box-shadow: 10px 10px 10px gray;
+            border: 2px solid gray;
+        }
+
+        .unscrambler_message{
+            font-family: fantasy;
+            font-size: 34px;
+        }
+        #unscrambler_rate{
+            color:blue;
+            text-shadow: 1px 1px 1px black,10px 10px 10px gray;
+            text-decoration: blink;
+        }
+
+
+        .unscrambler_token{
+            position: relative;
+            font-family: fantasy;
+            font-size: 20px;
+            color: rgb(130, 130, 130);
+            background-color: rgb(250,250,200);
+            padding: 5px 10px;
+            margin: 3px;
+            border: 3px solid rgb(130, 130, 130);
+            border-radius: 10px;
+            box-shadow: 3px 2px 2px 1px rgb(200, 200, 200);
+            user-select: none;
+            cursor: pointer;
+            /*flex: auto;*/
+        }
+
+        .unscrambler_token:hover{
+            background-color: rgb(250,250,250);
+        }
+
+        .unscrambler_brand{
+            position: absolute;
+            left: 300px;
+            top: 475px;
+            width: 250px;
+            height: 25px;
+            color: #B2C629;
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            font-family: fantasy;
+            font-size: 20px;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            overflow: hidden;
+            text-shadow: 1px 1px black;
+            user-select: none;
+            display: none;
+        }
+
+        .unscrambler_done{
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            top:120px;
+            width: 250px;
+            height: 25px;
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            font-family: fantasy;
+            font-size: 20px;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            overflow: hidden;
+            color: white;
+            text-shadow: 1px 1px black;
+        }
+
+        .unscrambler_remaining{
+            position: relative;
+            margin-left: auto;
+            margin-right: auto;
+            top:120px;
+            width: 250px;
+            height: 25px;
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            font-family: fantasy;
+            font-size: 20px;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            overflow: hidden;
+            color: white;
+            text-shadow: 1px 1px black;
+        }
+
+        .unscrambler_submit{
+            position: relative;
+
+            justify-content: center;
+            width: 100px;
+            height: 40px;
+            margin-left: auto;
+            margin-right: auto;
+            top: 290px;
+            border: 1px solid blue;
+            background-color: rgb(200, 200, 250);
+            color: purple;
+            border-radius: 10px;
+            font-size: 28px;
+            font-family: fantasy;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 40px;
+            justify-content: center;
+            text-shadow:0px 0px 10px white;
+            box-shadow: 3px 2px 2px 1px rgb(200, 200, 200);
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .unscrambler_submit:hover{
+            background-color: rgb(220, 220, 220);
+            color: red;
+        }
+
+        .unscrambler_wrong{
+            position: relative;
+
+            width: 100px;
+            height: 40px;
+            margin-left: auto;
+            margin-right: auto;
+            top: 290px;
+            border: 1px solid blue;
+            background-color: pink;
+            color: red;
+            text-align: center;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: fantasy;
+            text-align: center;
+            text-shadow:0px 0px 10px white;
+            box-shadow: 3px 2px 2px 1px rgb(200, 200, 200);
+
+        }
+        .unscrambler_correct{
+            position: relative;
+
+            width: 100px;
+            height: 40px;
+            margin-left: auto;
+            margin-right: auto;
+            top: 290px;
+            border: 1px solid blue;
+            background-color: lightgreen;
+            color: green;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: fantasy;
+            text-align: center;
+            text-shadow:0px 0px 10px white;
+            box-shadow: 3px 2px 2px 1px rgb(200, 200, 200);
+
+        }
+    </style>
+
+</head>
+
+<div id="container">
+
+    <h1>  7 - Matter 1b Unscramble Game</h1>
+    <div class="unscrambler_wrapper" id="unscrambler_wrapper">
+        <div class="unscrambler_container" id="unscrambler_container">
+            <div class="unscrambler_block" id="unscrambler_block">
+                <div class="unscrambler_results" id="unscrambler_results">
+                    <p class="unscrambler_message">Game Over!</p>
+                    <p class="unscrambler_message" id="unscrambler_final_score"></p>
+                    <p class="unscrambler_message" id="unscrambler_rate"></p>
+                </div>
+            </div>
+            <table><table border="0"; width=100%>
+                <td><div class="unscrambler_wrong" id="unscrambler_wrong">
+                    Wrong: <br/>
+                    0/0
+                </div></td>
+                <td>
+                    <div class="unscrambler_submit" id="unscrambler_submit">SUBMIT</div>
+                </td>
+                <td>
+                    <div class="unscrambler_correct" id="unscrambler_correct">
+                        Correct: <br/>
+                        0/0
+                    </div>
+                </td></table>
+
+                <div class="unscrambler_tokens" id="unscrambler_tokens"></div>
+                <div class="unscrambler_answer" id="unscrambler_answer"></div>
+
+                <table><table border="0"; width=100%>
+                    <td><div class="unscrambler_done" id="unscrambler_done"></div></td>
+                    <td><div class="unscrambler_remaining" id="unscrambler_remaining"></div></td>
+                </table>
+
+                    <div class="unscrambler_brand" id="unscrambler_brand">ESLTOOLKIT.COM</div>
+                    <audio class="unscrambler_error" id="unscrambler_error">
+                        <source src="sounds/error.mp3" type="audio/mpeg">
+                    </audio>
+                    <audio class="unscrambler_right" id="unscrambler_right">
+                        <source src="sounds/correct.mp3" type="audio/mpeg">
+                    </audio>
+                    <audio class="unscrambler_drop" id="unscrambler_drop">
+                        <source src="sounds/drop.mp3" type="audio/mpeg">
+                    </audio>
+        </div>
+    </div>
+
+    <script>
+        let container = document.getElementById("unscrambler_container");
+        let redArea = document.getElementById("unscrambler_tokens");
+        let greenArea = document.getElementById("unscrambler_answer");
+        let doneArea = document.getElementById("unscrambler_done");
+        let remainingArea = document.getElementById("unscrambler_remaining");
+        let submit = document.getElementById("unscrambler_submit");
+        let errorSound = document.getElementById("unscrambler_error");
+        let correctSound = document.getElementById("unscrambler_right");
+        let dropSound = document.getElementById("unscrambler_drop");
+        let blocker = document.getElementById("unscrambler_block");
+        let finalScoreArea = document.getElementById("unscrambler_final_score");
+        let rateArea = document.getElementById("unscrambler_rate");
+        let wrongArea = document.getElementById("unscrambler_wrong");
+        let correctArea = document.getElementById("unscrambler_correct");
+        let currentitem;
+        let listOfWords;
+        let score = 0;
+        let totalItems ;
+        let wrongNum = 0;
+        let correctNum = 0;
+
+        container.style.backgroundImage = "https://static.wixstatic.com/media/7459ac_2572b94e0e23438984ba89db2236bb24~mv2.jpg"
+
+        let items = [
+          "Everything/ is/ made/ up/ of tiny particles.",
+"The properties of a substance/ depend on/ what /its particles are/ like, how they /move and how/ they are /arranged.",
+"The properties of a /substance/ depend on/ what its /particles are like,/ how they/ move and /how they are /arranged.",
+"In a liquid /the particles/ still touch their/ neighbours but/ they/ move around, sliding /over each other. /This is why /you can pour, /but not /compress a liquid.",
+"In the gas state, /widely-spaced/ particles /move around /randomly. /This explains why /you can /compress gases/ and /why they flow.",
+"Everything in the /universe /contains the /atoms of at /least one or /more /elements.",
+"The particles/ in a gas move/ quickly in /all directions, but they /do not get far before /they /bump into each /other or /the walls of their /container.",
+"Substances/ can change state, /usually when /they are heated or /cooled. For example, /liquid water turns/ into steam when/ it is heated enough, /and it turns into /ice when it is /cooled enough.",
+"Changing/ state either /releases /or requires energy to/ make or /break the /intermolecular/ bonds between molecule.",
+"Some/ solids can /change from /a solid straight /to a gas./ This is called /sublimation. /Carbon/ dioxide is /an example of/ a solid that /can sublime.",
+"When a/ gas condenses/ it releases /energy as /it makes /new intermolecular /bonds /between /the particles.",
+"Diffusion is/ the spreading /out of the/ particles of one fluid in/ another fluid. /It is caused by/ the random/ collisions between/ particles.",
+        ];
+
+
+
+
+        init();
+
+
+        //###################################################### FUNCTIONS ########################################################//
+
+        function init(){
+            totalItems = items.length;
+            additem(items);
+        }
+        function additem(items){
+            //if the item list is empty the end-game dialog will be shown.
+            if(items.length == 0){endGame(); return;};
+            //choose a random background color for the areas
+            redArea.style.backgroundColor = generateRandomColor();
+            greenArea.style.backgroundColor = generateRandomColor();
+            //chose an item randomly as the current item and eliminate it from the list
+            let randomIndex = Math.floor(Math.random()*items.length)
+            currentitem = items[randomIndex];
+            items.splice(randomIndex, 1);
+            remainingArea.textContent = (items.length+1) +"/" +totalItems+ " Items Remaining";
+            doneArea.textContent = (totalItems-items.length-1)+"/"+totalItems + " Items Done";
+            //clean-up the current item
+            let str;
+            if(currentitem instanceof Array){str = currentitem[0].trim();}
+            else{str = currentitem.trim();}
+            //put the words in the current item in a list
+            listOfWords = str.split("/");
+            //randomize the list
+            listOfWords = shuffle(listOfWords);
+            //The items is ready to be added!
+            for (var i = 0; i < listOfWords.length; i++) {
+                let newEl = document.createElement("div");
+                newEl.setAttribute("class", "unscrambler_token");
+                newEl.setAttribute("id", "draggable" + i);
+                newEl.setAttribute("draggable", "true");
+                newEl.textContent = listOfWords[i];
+                newEl.addEventListener("dragstart", function(event){drag(event)});
+                newEl.addEventListener("mouseover", clearSelection);
+                newEl.addEventListener("mouseup", function(){moveByClick(this)});
+                redArea.appendChild(newEl);
+            }
+        }
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+        function drag(event) {
+
+            event.dataTransfer.setData("Text", event.target.id);
+        }
+        function allowDrop(event) {
+
+            event.preventDefault();
+        }
+        function drop(event , el) {
+            event.preventDefault();
+            dropSound.play();
+            let data = event.dataTransfer.getData("text");
+            el.appendChild(document.getElementById(data));
+        }
+        function check(){
+            if(redArea.children.length > 0) return;
+            let answer = "";
+            for (var i = 0; i < greenArea.children.length; i++) {
+                answer += greenArea.children[i].textContent;
+                answer = answer.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+                answer = answer.replace(/\s{0,}/g,"");
+                answer = answer.toLowerCase();
+            }
+            if(currentitem instanceof Array){
+                for (var i = 0; i < currentitem.length; i++) {
+                    currentitem[i] = currentitem[i].replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+                    currentitem[i] = currentitem[i].replace(/\s{0,}/g,"");
+                    currentitem[i] = currentitem[i].toLowerCase();
+                    if(currentitem[i] == answer){
+                        correctSound.play();
+                        correctNum++;
+                        correctArea.innerHTML = "Correct:<br/>" + correctNum+"/"+totalItems;
+                        alert("Write it down. Only click when you're ready for the next one.");
+                        greenArea.innerHTML = "";
+                        score++;
+                        additem(items);
+                        return;
+                    }
+                }
+                errorSound.play();
+                wrongNum++;
+                wrongArea.innerHTML = "Wrong:<br/>" + wrongNum+"/"+totalItems;
+                greenArea.innerHTML = "";
+            }
+            else{
+                currentitem = currentitem.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+                currentitem = currentitem.replace(/\s{0,}/g,"");
+                currentitem = currentitem.toLowerCase();
+                if(currentitem == answer){
+                    correctSound.play();
+                    correctNum++;
+                    correctArea.innerHTML = "Correct:<br/>" + correctNum+"/"+totalItems;
+                    greenArea.innerHTML = "";
+                    score++;
+                    alert("Write it down. Only click when you're ready for the next one.");
+                }
+                else{
+                    errorSound.play();
+                    wrongNum++;
+                    wrongArea.innerHTML = "Wrong:<br/>" + wrongNum+"/"+totalItems;
+                    greenArea.innerHTML = "";
+                    
+                }
+            }
+            additem(items);
+        }
+        function replaceAll(str, find, replace) {
+
+            return str.replace(new RegExp(find, 'g'), replace);
+        }
+        function endGame(){
+            setTimeout(function(){
+                blocker.style.display = "flex";
+                finalScoreArea.textContent = "Score: " + score + " out of " + totalItems;
+                let percent = Math.round((score/totalItems)*100);
+                let rate = "";
+                if(percent <= 20) rate = "Try harder next time!";
+                if(percent > 20 && percent <= 40) rate = "Not so good!";
+                if(percent > 40 && percent <= 60) rate = "Not bad!";
+                if(percent > 60 && percent <= 80) rate = "Good Job!";
+                if(percent > 80 && percent <= 90) rate = "Very Good!";
+                if(percent > 90) rate = "Perfect!";
+                rateArea.textContent = rate;
+            }, 1500);
+        }
+        function generateRandomColor(){
+            let r = 100, g = 100, b = 100, a = 0.7;
+            r += Math.floor(Math.random()*155);
+            g += Math.floor(Math.random()*155);
+            b += Math.floor(Math.random()*155);
+            return "rgba(" + r + "," + g + "," + b + "," + a + ")";
+        }
+
+        function clearSelection(){
+            if (window.getSelection) {window.getSelection().removeAllRanges();}
+            else if (document.selection) {document.selection.empty();}
+        }
+
+        function moveByClick(el){
+            if(el.parentElement == redArea){redArea.removeChild(el); greenArea.appendChild(el);}
+            else {greenArea.removeChild(el); redArea.appendChild(el);}
+            dropSound.play();
+        }
+
+        //#################################################### EVENT LISTENERS ####################################################//
+
+        //Prepare the green and red areas for drag and drop operation
+        redArea.addEventListener("drop", function(event){drop(event, this)});
+        redArea.addEventListener("dragover",function(event){allowDrop(event)});
+        greenArea.addEventListener("drop", function(event){drop(event, this)});
+        greenArea.addEventListener("dragover", function(event){allowDrop(event)});
+        submit.addEventListener("click", check);
+    </script><!--<script type="text/javascript" src="adjectives1.js"></script>-->
+</div>
